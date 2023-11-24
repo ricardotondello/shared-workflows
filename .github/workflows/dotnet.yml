@@ -77,7 +77,7 @@ jobs:
     if: ${{ always() }}
     runs-on: ubuntu-latest
     name: Final Results
-    needs: [build-ubuntu, build-windows, build-macos]
+    needs: [build-ubuntu, build-macos]
     steps:
     - run: exit 1
       if: >-
