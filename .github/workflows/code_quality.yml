@@ -9,6 +9,8 @@ on:
         required: true
       SONAR_ORGNAME:
         required: true
+      AIKIDO_SECRET_KEY:
+        required: true
         
 jobs:
   build:
