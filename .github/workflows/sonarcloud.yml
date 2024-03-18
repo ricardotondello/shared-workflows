@@ -1,4 +1,4 @@
-name: Code Quality
+name: Sonar Cloud
 
 on:
   workflow_call:
@@ -8,8 +8,6 @@ on:
       SONAR_PROJECTKEY:
         required: true
       SONAR_ORGNAME:
-        required: true
-      AIKIDO_SECRET_KEY:
         required: true
         
 jobs:
@@ -48,23 +46,4 @@ jobs:
           dotnet build --configuration Release --no-restore
           dotnet-coverage collect "dotnet test" -f xml -o "coverage.xml"
           dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
-  
-  aikido-security:
-    name: aikidoSecurity
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Detect new vulnerabilities
-        uses: AikidoSec/github-actions-workflow@v1.0.8
-        with:
-            secret-key: ${{ secrets.AIKIDO_SECRET_KEY }}
-            fail-on-timeout: true
-            fail-on-dependency-scan: true
-            fail-on-sast-scan: false
-            fail-on-iac-scan: false
-            minimum-severity: 'CRITICAL'
-            timeout-seconds: 180
-            post-scan-status-comment: true
-            github-token: ${{ secrets.GITHUB_TOKEN }}
+          
