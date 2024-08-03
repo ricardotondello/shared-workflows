@@ -20,7 +20,7 @@ jobs:
           dotnet-version: ${{ matrix.dotnet-version }}
 
       - name: Restore dependencies
-        run: dotnet restore
+        run: dotnet restore -p:RestorePackagesWithLockFile=True
 
       - name: Build
         run: dotnet build --configuration Release --no-restore

@@ -42,7 +42,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}        
         run: |
           dotnet-sonarscanner begin /k:"${{ secrets.SONAR_PROJECTKEY }}" /o:"${{ secrets.SONAR_ORGNAME }}" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.opencover.reportsPaths=coverage.xml
-          dotnet restore
+          dotnet restore -p:RestorePackagesWithLockFile=True
           dotnet build --no-restore
           coverlet "${{ secrets.SONAR_TEST_FILE_PATH }}" --target "dotnet" --targetargs "test --no-build" -f=opencover -o="coverage.xml"
           dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
