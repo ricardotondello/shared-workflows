@@ -24,7 +24,7 @@ jobs:
         run: echo '{"sdk":{"version":"${{ steps.stepid.outputs.dotnet-version }}"}}' > ./global.json
 
       - name: Restore dependencies
-        run: dotnet restore
+        run: dotnet restore -p:RestorePackagesWithLockFile=True
 
       - name: Build
         run: dotnet build --configuration Release --no-restore
